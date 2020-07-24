@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/c6a426b969.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-success text-center">ToDo <i class="far fa-check-circle"></i> </h1>
+
+        <form action="/addTask" method="post">
+            <div class="form-group">
+                <label for="inputTask" class="lead">Add a task</label>
+                <input type="text" class="form-control" placeholder="Task" id="inputTask" name="inputTask">
+            </div>
+            <button type="submit" class="btn btn-success ">Add</button>
+        </form>
+    </div>
+    <div class="container mt-3">
+        <table class="table table-bordered ">
+            <thead class="thead-bordered">
+                <tr class="d-flex">
+                    <th class="col-1">#</th>
+                    <th class="col-7">Task</th>
+                    <th class="col-2">Start date</th>
+                    <th class="col-2">Complete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% tasks.forEach(element => { %>
+                <tr class="d-flex <%= element.status ? "table-success":"table-danger";%>">
+                    <td class="col-1"><%= ++i %></td>
+                    <td class=" col-7"><%= element.title%></td>
+                    <td class="col-2"><%= element.date.toLocaleDateString()%></td>
+                    <td class="col-2 btn-group">
+                        <form action="/completeTask/<%=element._id %>" method="post" class="mr-1">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success "><i
+                                        class="far fa-check-circle"></i></button>
+                            </div>
+                        </form>
+                        <form action="/deleteTask/<%=element._id %>" method="post" class="">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-danger "><i class="far fa-trash-alt"></i></button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
